@@ -24,27 +24,32 @@ const AddCardForm = ({ dispatch }) => {
   return (
     <div className="form-wrapper">
       <form onSubmit={addCard}>
+        <h3>Add Card</h3>
         <input
+          className="placeholder"
           type="text"
-          placeholder="enter Title"
+          placeholder="Title..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <input
+          className="placeholder"
           type="text"
-          placeholder="enter Language"
+          placeholder="Language..."
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
         />
         <input
+          className="placeholder"
           type="text"
-          placeholder="enter Body"
+          placeholder="Body..."
           value={body}
           onChange={(e) => setBody(e.target.value)}
         />
         <textarea
+          className="placeholder"
           name="code-block"
-          placeholder="enter Code..."
+          placeholder="Code..."
           value={code}
           onChange={(e) => setCode(e.target.value)}
         />
@@ -55,13 +60,13 @@ const AddCardForm = ({ dispatch }) => {
           .form-wrapper {
             padding: 1.5rem;
             width: 100%;
+            height: 100%:
             background-image: linear-gradient(
               0deg,
               #695af5 0%,
               #ff99cc 74%,
               white 100%;
             );
-            height: 100%:
           }
 
           form {
@@ -76,6 +81,12 @@ const AddCardForm = ({ dispatch }) => {
                         -13px -13px 20px #ffffff;
           }
 
+          form h3 {
+            text-align: center;
+            font-size: 2rem;
+            letter-spacing: 0.5px;
+          }
+
           form input {
             height: 2rem;
             font-size: inherit;
@@ -85,12 +96,49 @@ const AddCardForm = ({ dispatch }) => {
             min-width: 15rem;
             height: 8rem;
             font-size: inherit;
+            font-family: inherit;
+          }
+
+          form input,
+          form textarea {
+            border: none;
+            outline: none;
+            background: none;
+            color: #555;
+            padding: 20px 10px 20px 5px;
+            margin-bottom: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: inset 8px 8px 8px #cbced1,
+                        inset -8px -8px 8px #ffffff
+          }
+          
+          input.placeholder::placeholder,
+          textarea.placeholder::placeholder {
+            padding-left: 12px;
           }
 
           form button {
             font-size: 1rem;
             padding: 1rem;
-            background-color: lightgray;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-family: 'Lato', sans-serif;
+            color: #fff;
+            background-color: #24cfaa;
+            box-shadow: 3px 3px 8px #b1b1b1,
+                        -3px -3px 8px #ffffff;
+            transition: all 0.3s;
+          }
+
+          form button:hover {
+            background: #2fdbb6;
+          }
+
+          form button:active {
+            background: #1da88a;
           }
         `}
       </style>
