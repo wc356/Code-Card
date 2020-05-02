@@ -1,17 +1,17 @@
 import React, { useEffect, useReducer } from "react";
 
 import CardList from "./CardList";
-import AddCardForm from "../components/AddCardForm";
+import AddCardForm from "./AddCardForm";
 import cardsReducer from "../reducers/cards";
 import cardsInitialState from "../database/cards";
 
-const CardsList = () => {
+import CardsContext from "../context/cards-context.js";
+
+const CardApp = () => {
   const [cards, dispatch] = useReducer(cardsReducer, cardsInitialState);
 
-  const removeCard = (title) => {
-    dispatch({ type: "REMOVE_CARD", title });
-  };
-
+  // Load "cards" from localStorage if "cards" exist and
+  // dispatch action POPULATE_CARDS to reducer
   useEffect(() => {
     const cards = JSON.parse(localStorage.getItem("cards"));
     if (!cards) return;
@@ -19,15 +19,18 @@ const CardsList = () => {
     dispatch({ type: "POPULATE_CARDS", cards });
   }, []);
 
+  // Save cards as "cards" to localStorage when [cards]DidUpdate
   useEffect(() => {
     localStorage.setItem("cards", JSON.stringify(cards));
   }, [cards]);
 
   return (
-    <div className="page">
-      <AddCardForm dispatch={dispatch} />
-      <CardList cards={cards} removeCard={removeCard} />
-      <style jsx>
+    <CardsContext.Provider value={{ cards, dispatch }}>
+      <section className="page">
+        <AddCardForm dispatch={dispatch} />
+        <CardList />
+      </section>
+      <style jsx="true">
         {`
           .page {
             display: flex;
@@ -38,8 +41,8 @@ const CardsList = () => {
           }
         `}
       </style>
-    </div>
+    </CardsContext.Provider>
   );
 };
 
-export default CardsList;
+export default CardApp;

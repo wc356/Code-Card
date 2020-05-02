@@ -8,6 +8,8 @@ const AddCardForm = ({ dispatch }) => {
 
   const addCard = (e) => {
     e.preventDefault();
+
+    // Dispatch action ADD_CARD to reducer
     dispatch({
       type: "ADD_CARD",
       title,
@@ -15,6 +17,8 @@ const AddCardForm = ({ dispatch }) => {
       body,
       code,
     });
+
+    // Clear input fields
     setTitle("");
     setLanguage("");
     setBody("");
@@ -55,18 +59,13 @@ const AddCardForm = ({ dispatch }) => {
         />
         <button>Add Card</button>
       </form>
-      <style jsx>
+
+      <style jsx="true">
         {`
           .form-wrapper {
-            padding: 1.5rem;
+            padding: 7rem 2rem;
             width: 100%;
             height: 100%:
-            background-image: linear-gradient(
-              0deg,
-              #695af5 0%,
-              #ff99cc 74%,
-              white 100%;
-            );
           }
 
           form {
@@ -75,10 +74,11 @@ const AddCardForm = ({ dispatch }) => {
             justify-content: space-evenly;
             font-size: 1rem;
             padding: 3.5rem 2rem 2rem 2rem;
+            min-width: 16rem;
             border-radius: 2.5rem;
-            background: #ecf0f3;
-            box-shadow: 13px 13px 20px #cbced1,
-                        -13px -13px 20px #ffffff;
+            background-color: #c8efc3;
+            box-shadow: 13px 13px 20px #aacba6,
+                        -13px -13px 20px #e6ffe0;
           }
 
           form h3 {
@@ -93,7 +93,6 @@ const AddCardForm = ({ dispatch }) => {
           }
 
           form textarea {
-            min-width: 15rem;
             height: 8rem;
             font-size: inherit;
             font-family: inherit;
@@ -108,8 +107,8 @@ const AddCardForm = ({ dispatch }) => {
             padding: 20px 10px 20px 5px;
             margin-bottom: 1.5rem;
             border-radius: 1rem;
-            box-shadow: inset 8px 8px 8px #cbced1,
-                        inset -8px -8px 8px #ffffff
+            box-shadow: inset 8px 8px 8px #aacba6,
+                        inset -8px -8px 8px #e6ffe0;
           }
           
           input.placeholder::placeholder,
@@ -126,10 +125,11 @@ const AddCardForm = ({ dispatch }) => {
             border-radius: 2rem;
             font-weight: 700;
             font-family: 'Lato', sans-serif;
+            font-size: 1.1rem;
             color: #fff;
-            background-color: #24cfaa;
-            box-shadow: 3px 3px 8px #b1b1b1,
-                        -3px -3px 8px #ffffff;
+            background-color: #98c5a6;
+            box-shadow: 8px 8px 8px #aacba6,
+                        -8px -8px 8px #e6ffe0;
             transition: all 0.3s;
           }
 

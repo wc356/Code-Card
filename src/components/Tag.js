@@ -5,7 +5,7 @@ const Tag = ({ language }) => (
     <div className="container">
       <span>{language}</span>
     </div>
-    <style jsx>
+    <style jsx="true">
       {`
         .wrapper {
           display: flex;

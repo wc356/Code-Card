@@ -5,7 +5,6 @@ import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 class CodeBlock extends PureComponent {
   static propTypes = {
-    value: PropTypes.string.isRequired,
     language: PropTypes.string,
   };
 
