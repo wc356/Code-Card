@@ -1,17 +1,15 @@
 import React, { useEffect, useReducer } from "react";
 
-import CardList from "./CardList";
-import AddCardForm from "./AddCardForm";
+import CardsContext from "../context/cards-context.js";
 import cardsReducer from "../reducers/cards";
 import cardsInitialState from "../database/cards";
-
-import CardsContext from "../context/cards-context.js";
+import CardList from "./CardList";
+import AddCardForm from "./AddCardForm";
 
 const CardApp = () => {
   const [cards, dispatch] = useReducer(cardsReducer, cardsInitialState);
 
   // Load "cards" from localStorage if "cards" exist and
-  // dispatch action POPULATE_CARDS to reducer
   useEffect(() => {
     const cards = JSON.parse(localStorage.getItem("cards"));
     if (!cards) return;
@@ -26,10 +24,10 @@ const CardApp = () => {
 
   return (
     <CardsContext.Provider value={{ cards, dispatch }}>
-      <section className="page">
-        <AddCardForm dispatch={dispatch} />
+      <main className="page">
+        <AddCardForm />
         <CardList />
-      </section>
+      </main>
       <style jsx="true">
         {`
           .page {

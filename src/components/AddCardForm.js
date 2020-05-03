@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
-const AddCardForm = ({ dispatch }) => {
+import CardsContext from "../context/cards-context";
+
+const AddCardForm = () => {
+  const { dispatch } = useContext(CardsContext);
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState("");
   const [body, setBody] = useState("");
@@ -29,6 +32,7 @@ const AddCardForm = ({ dispatch }) => {
     <div className="form-wrapper">
       <form onSubmit={addCard}>
         <h3>Add Card</h3>
+
         <input
           className="placeholder"
           type="text"
@@ -57,9 +61,9 @@ const AddCardForm = ({ dispatch }) => {
           value={code}
           onChange={(e) => setCode(e.target.value)}
         />
+
         <button>Add Card</button>
       </form>
-
       <style jsx="true">
         {`
           .form-wrapper {

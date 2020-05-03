@@ -14,11 +14,10 @@ const Tag = ({ language }) => (
 
         .container {
           display: block;
-          color: purple;
           padding: 1rem;
           border-radius: 0.6rem;
-          background-color: pink;
-          border: 1px solid magenta;
+          background: linear-gradient(145deg, #fdffff, #d4d8db);
+          box-shadow: 13px 13px 20px #b8bbbe, -13px -13px 20px #ffffff;
         }
 
         .container span {

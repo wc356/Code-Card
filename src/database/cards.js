@@ -36,7 +36,6 @@ export default [
   {
     title: `useReducer`,
     language: `jsx`,
-
     body: `input–state, dispatch (action)`,
     code: `
     const [state, dispatch] = useReducer(reducerFunction, initialState)`,
