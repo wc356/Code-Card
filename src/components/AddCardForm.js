@@ -32,7 +32,6 @@ const AddCardForm = () => {
     <div className="form-wrapper">
       <form onSubmit={addCard}>
         <h3>Add Card</h3>
-
         <input
           className="placeholder"
           type="text"
@@ -61,7 +60,6 @@ const AddCardForm = () => {
           value={code}
           onChange={(e) => setCode(e.target.value)}
         />
-
         <button>Add Card</button>
       </form>
       <style jsx="true">

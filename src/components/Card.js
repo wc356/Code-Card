@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import ReactMarkdown from "react-markdown";
 
 import CardsContext from "../context/cards-context";
@@ -6,52 +6,22 @@ import CardsContext from "../context/cards-context";
 import CodeBlock from "./renderer/CodeBlock";
 import Tag from "./Tag";
 
-const useMousePosition = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setPosition({
-        x: e.pageX,
-        y: e.pageY,
-      });
-    };
-
-    document.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
-  return position;
-};
-
 const Card = ({ card }) => {
   const { dispatch } = useContext(CardsContext);
 
-  const position = useMousePosition();
-
   const input = `
-    # ${card.title}\n\n
+  # ${card.title}\n\n
 
-    ${card.body}
-    \`\`\`${card.language}
-    ${card.code}
-    \`\`\`
-    `;
-
-  useEffect(() => {
-    console.log(card);
-  }, [card]);
+  ${card.body}
+  \`\`\`${card.language}
+  ${card.code}
+  \`\`\`
+  `;
 
   return (
     <div className="card">
       <Tag language={card.language} />
       <ReactMarkdown source={input} renderers={{ code: CodeBlock }} />
-      <p>
-        {position.x}, {position.y}
-      </p>
       <button
         onClick={() => dispatch({ type: "REMOVE_CARD", title: card.title })}
       >
@@ -79,6 +49,7 @@ const Card = ({ card }) => {
             cursor: pointer;
             background: linear-gradient(145deg, #fdffff, #d4d8db);
             box-shadow: 13px 13px 20px #b8bbbe, -13px -13px 20px #ffffff;
+            margin: 1rem 1rem 0.5rem 1rem;
           }
 
           .card p {

@@ -6,7 +6,6 @@ const cardsReducer = (state, action) => {
       return [
         ...state,
         {
-          isFlipped: false,
           title: action.title,
           language: action.language,
           body: action.body,
