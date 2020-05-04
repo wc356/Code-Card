@@ -8,6 +8,9 @@ import AddCardForm from "./AddCardForm";
 
 const CardApp = () => {
   const [cards, dispatch] = useReducer(cardsReducer, cardsInitialState);
+  // 3 States/Pages—Dashboard(), Correct()
+  // two buttons—one for Correct and Incorrect
+  // When pressed Correct,
 
   // Load "cards" from localStorage if "cards" exist and
   useEffect(() => {

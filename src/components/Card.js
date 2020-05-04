@@ -24,30 +24,63 @@ const Card = ({ card }) => {
   `;
 
     return (
-      <ReactMarkdown
-        source={cardFlipped ? cardSideBack : cardSideFront}
-        renderers={{ code: CodeBlock }}
-      />
+      <>
+        <ReactMarkdown
+          source={cardFlipped ? cardSideBack : cardSideFront}
+          renderers={{ code: CodeBlock }}
+        />
+        {cardFlipped && (
+          <div className="button-container">
+            <button>✔</button>
+            <button
+              onClick={() =>
+                dispatch({ type: "REMOVE_CARD", title: card.title })
+              }
+            >
+              <span role="img" aria-label="x-button">
+                ❌
+              </span>
+            </button>
+            <style jsx="true">
+              {`
+                .card .button-container {
+                  display: flex;
+                  width: 100%;
+                  justify-content: center;
+                }
+
+                .card button {
+                  padding: 1rem;
+                  border-radius: 2rem;
+                  outline: none;
+                  border: none;
+                  cursor: pointer;
+                  background: linear-gradient(145deg, #fdffff, #d4d8db);
+                  box-shadow: 13px 13px 20px #b8bbbe, -13px -13px 20px #ffffff;
+                  margin: 1rem 1rem 0.5rem 1rem;
+                  width: 10rem;
+                }
+
+                .card button:hover {
+                  background: #fff;
+                }
+              `}
+            </style>
+          </div>
+        )}
+      </>
     );
   };
 
   return (
     <div
       className="card"
-      tabIndex="0"
       onClick={() =>
         cardFlipped ? setCardFlipped(false) : setCardFlipped(true)
       }
     >
       <Tag language={card.language} />
       {renderCardFace()}
-      <div className="button-container">
-        <button
-          onClick={() => dispatch({ type: "REMOVE_CARD", title: card.title })}
-        >
-          ✔
-        </button>
-      </div>
       <style jsx="true">
         {`
           .card {
@@ -56,7 +89,8 @@ const Card = ({ card }) => {
             padding: 1.5rem;
             border-radius: 15px;
             max-width: 100vw;
-            min-width 16rem:
+            min-width: 16rem;
+            min-height: 20rem;
             background-color: #ecf0f3;
             box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
             margin-bottom: 3rem;
@@ -67,29 +101,6 @@ const Card = ({ card }) => {
           .card:hover {
             background-color: #fff;
             transform: translateY(-10px);
-          }
-
-          .card .button-container {
-            display: flex;
-            width: 100%;
-            justify-content: center;
-          }
-
-          .card button {
-            padding: 1rem;
-            border-radius: 2rem;
-            outline: none;
-            border: none;
-            cursor: pointer;
-            background: linear-gradient(145deg, #fdffff, #d4d8db);
-            box-shadow: 13px 13px 20px #b8bbbe, -13px -13px 20px #ffffff;
-            margin: 1rem 1rem 0.5rem 1rem;
-            width: 10rem;
-            transition: all 1s;
-          }
-
-          .card button:hover {
-            background-color: #fff;
           }
 
           .card p {

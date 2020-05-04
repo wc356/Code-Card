@@ -8,6 +8,9 @@ const CardList = () => {
 
   return (
     <div className="cards-container">
+      <h1 className="cards-count">
+        showing {cards.length} {cards.length === 1 ? "card" : "cards"}
+      </h1>
       {cards.map((card) => (
         <Card key={card.title} card={card} />
       ))}
@@ -16,6 +19,10 @@ const CardList = () => {
           .cards-container {
             padding: 0 2rem;
             width: 100%;
+          }
+
+          .cards-count {
+            text-align: right;
           }
         `}
       </style>
