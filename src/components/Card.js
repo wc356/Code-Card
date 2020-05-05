@@ -10,18 +10,27 @@ import Tag from "./Tag";
 const Card = ({ card: { title, body, language, code } }) => {
   const { dispatch } = useContext(CardsContext);
   const {
-    cardsMemorized,
-    setCardsMemorized,
-    cardsToReview,
-    setCardsToReview,
+    cardsCountCorrect,
+    setCardsCountCorrect,
+    cardsCountIncorrect,
+    setCardsCountIncorrect,
   } = useContext(CardsReviewContext);
   const [cardFlipped, setCardFlipped] = useState(false);
 
-  const CardFace = () => {
-    const cardSideFront = `
-  # ${title}
-  `;
-    const cardSideBack = `
+  const CardFaceFront = () => {
+    if (cardFlipped) return null;
+
+    const cardValueFront = `# ${title}`;
+
+    return (
+      <ReactMarkdown source={cardValueFront} renderers={{ code: CodeBlock }} />
+    );
+  };
+
+  const CardFaceBack = () => {
+    if (!cardFlipped) return null;
+
+    const cardValueBack = `
   # ${title}\n\n
 
   ${body}
@@ -32,90 +41,84 @@ const Card = ({ card: { title, body, language, code } }) => {
 
     return (
       <>
-        <ReactMarkdown
-          source={cardFlipped ? cardSideBack : cardSideFront}
-          renderers={{ code: CodeBlock }}
-        />
-        {cardFlipped && (
-          <div className="button-container">
-            <button
-              onClick={() => {
-                setCardsMemorized([
-                  ...cardsMemorized,
-                  { title, body, language, code },
-                ]);
-                dispatch({ type: "REMOVE_CARD", title });
-              }}
-            >
-              <span id="correct" role="img" aria-label="button-correct">
-                ✔️
-              </span>
-            </button>
-            <button
-              onClick={() => {
-                setCardsToReview([
-                  ...cardsToReview,
-                  { title, body, language, code },
-                ]);
-                dispatch({ type: "REMOVE_CARD", title });
-              }}
-            >
-              <h1 id="incorrect">X</h1>
-            </button>
-            <style jsx="true">
-              {`
-                .card .button-container {
-                  display: flex;
-                  width: 100%;
-                  justify-content: center;
-                }
+        <ReactMarkdown source={cardValueBack} renderers={{ code: CodeBlock }} />
+        <div className="button-container">
+          <button
+            onClick={() => {
+              console.log(cardsCountCorrect);
+              if (cardsCountCorrect.some((card) => card.title === title))
+                return;
 
-                .card .button-container span {
-                  font-size: 1.5rem;
-                  font-weight: 900;
-                }
+              setCardsCountCorrect([
+                ...cardsCountCorrect,
+                { title, body, language, code },
+              ]);
+              dispatch({ type: "REMOVE_CARD", title });
+            }}
+          >
+            <span id="correct" role="img" aria-label="button-correct">
+              ✔️
+            </span>
+          </button>
+          <button
+            onClick={() => {
+              if (cardsCountIncorrect.some((card) => card.title === title))
+                return;
 
-                span#correct {
-                  fill: green;
-                }
+              setCardsCountIncorrect([
+                ...cardsCountIncorrect,
+                { title, body, language, code },
+              ]);
+              dispatch({ type: "REMOVE_CARD", title });
+            }}
+          >
+            <h1 id="incorrect">X</h1>
+          </button>
+          <style jsx="true">
+            {`
+              .card .button-container {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+              }
 
-                h1#incorrect {
-                  color: red;
-                  font-size: 1.7rem;
-                }
+              .card .button-container span {
+                font-size: 1.5rem;
+                font-weight: 900;
+              }
 
-                .card button {
-                  padding: 1rem;
-                  border-radius: 2rem;
-                  outline: none;
-                  border: none;
-                  cursor: pointer;
-                  background: linear-gradient(145deg, #fdffff, #d4d8db);
-                  box-shadow: 13px 13px 20px #b8bbbe, -13px -13px 20px #ffffff;
-                  margin: 1rem 1rem 0.5rem 1rem;
-                  width: 10rem;
-                }
+              h1#incorrect {
+                color: red;
+                font-size: 1.7rem;
+              }
 
-                .card button:hover {
-                  background: #fff;
-                }
-              `}
-            </style>
-          </div>
-        )}
+              .card button {
+                padding: 1rem;
+                border-radius: 2rem;
+                outline: none;
+                border: none;
+                cursor: pointer;
+                background: linear-gradient(145deg, #fdffff, #d4d8db);
+                box-shadow: 13px 13px 20px #b8bbbe, -13px -13px 20px #ffffff;
+                margin: 1rem 1rem 0.5rem 1rem;
+                width: 10rem;
+              }
+
+              .card button:hover {
+                background: #fff;
+              }
+            `}
+          </style>
+        </div>
       </>
     );
   };
 
   return (
-    <div
-      className="card"
-      onClick={() =>
-        cardFlipped ? setCardFlipped(false) : setCardFlipped(true)
-      }
-    >
+    <div className="card" onClick={() => setCardFlipped(!cardFlipped)}>
       <Tag language={language} />
-      <CardFace />
+      <CardFaceFront />
+      <CardFaceBack />
       <style jsx="true">
         {`
           .card {

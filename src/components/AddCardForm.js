@@ -111,8 +111,8 @@ const AddCardForm = () => {
                         inset -8px -8px 8px #e6ffe0;
           }
           
-          input.placeholder::placeholder,
-          textarea.placeholder::placeholder {
+          form input.placeholder::placeholder,
+          form textarea.placeholder::placeholder {
             padding-left: 12px;
           }
 

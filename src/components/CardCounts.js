@@ -5,21 +5,19 @@ import CardsReviewContext from "../context/cards-review-context";
 
 const CardCounts = () => {
   const { cards } = useContext(CardsContext);
-  const { cardsMemorized, cardsToReview } = useContext(CardsReviewContext);
+  const { cardsCountCorrect, cardsCountIncorrect, isReviewing } = useContext(
+    CardsReviewContext
+  );
+  const cardsToCount = isReviewing ? cardsCountIncorrect : cards;
+
   return (
     <>
-      <h1>correct: {cardsMemorized.length}</h1>
-      <h1>wrong: {cardsToReview.length}</h1>
-      <h1 className="cards-count">
-        showing {cards.length} {cards.length === 1 ? "card" : "cards"}
+      <h1>correct: {cardsCountCorrect.length}</h1>
+      <h1>wrong: {cardsCountIncorrect.length}</h1>
+      <h1>
+        showing {cardsToCount.length}{" "}
+        {cardsToCount.length === 1 ? "card" : "cards"}
       </h1>
-      <style jsx="true">
-        {`
-          .cards-count {
-            text-align: right;
-          }
-        `}
-      </style>
     </>
   );
 };

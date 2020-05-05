@@ -8,21 +8,23 @@ import Card from "./Card";
 
 const CardList = () => {
   const { cards } = useContext(CardsContext);
-  const { cardsMemorized, cardsToReview } = useContext(CardsReviewContext);
+  const { cardsCountIncorrect, isReviewing, setIsReviewing } = useContext(
+    CardsReviewContext
+  );
 
   const Cards = () =>
     cards.map((card) => <Card key={card.title} card={card} />);
 
   const CardsToReview = () =>
-    cardsToReview.map((card) => <Card key={card.title} card={card} />);
+    isReviewing &&
+    cardsCountIncorrect.map((card) => <Card key={card.title} card={card} />);
 
   const ReviewButtons = () =>
     cards.length === 0 && (
       <div className="button-wrapper">
         <button
           onClick={() => {
-            console.log(cardsToReview);
-            CardsToReview();
+            setIsReviewing(true);
           }}
         >
           <h1>Review Incorrect</h1>
@@ -37,6 +39,7 @@ const CardList = () => {
     <div className="cards-container">
       <CardCounts />
       <Cards />
+      <CardsToReview />
       <ReviewButtons />
       <style jsx="true">
         {`
