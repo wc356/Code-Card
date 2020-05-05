@@ -1,13 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 
 import CardsContext from "../context/cards-context";
+import CardsReviewContext from "../context/cards-review-context";
 
 import CodeBlock from "./renderer/CodeBlock";
 import Tag from "./Tag";
 
 const Card = ({ card }) => {
   const { dispatch } = useContext(CardsContext);
+  const {
+    cardsMemorized,
+    setCardsMemorized,
+    cardsToReview,
+    setCardsToReview,
+  } = useContext(CardsReviewContext);
   const [cardFlipped, setCardFlipped] = useState(false);
 
   const renderCardFace = () => {
@@ -31,15 +38,23 @@ const Card = ({ card }) => {
         />
         {cardFlipped && (
           <div className="button-container">
-            <button>✔</button>
             <button
-              onClick={() =>
-                dispatch({ type: "REMOVE_CARD", title: card.title })
-              }
+              onClick={() => {
+                setCardsMemorized([...cardsMemorized, card]);
+                dispatch({ type: "REMOVE_CARD", title: card.title });
+              }}
             >
-              <span role="img" aria-label="x-button">
-                ❌
+              <span id="correct" role="img" aria-label="button-correct">
+                ✔️
               </span>
+            </button>
+            <button
+              onClick={() => {
+                setCardsToReview([...cardsToReview, card]);
+                dispatch({ type: "REMOVE_CARD", title: card.title });
+              }}
+            >
+              <h1 id="incorrect">X</h1>
             </button>
             <style jsx="true">
               {`
@@ -47,6 +62,20 @@ const Card = ({ card }) => {
                   display: flex;
                   width: 100%;
                   justify-content: center;
+                }
+
+                .card .button-container span {
+                  font-size: 1.5rem;
+                  font-weight: 900;
+                }
+
+                span#correct {
+                  fill: green;
+                }
+
+                h1#incorrect {
+                  color: red;
+                  font-size: 1.7rem;
                 }
 
                 .card button {
