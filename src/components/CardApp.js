@@ -40,14 +40,14 @@ const CardApp = () => {
           setCardsToReview,
         }}
       >
-        <main className="page">
+        <main>
           <AddCardForm />
           <CardList />
         </main>
       </CardsReviewContext.Provider>
       <style jsx="true">
         {`
-          .page {
+          main {
             display: flex;
             flex-direction: column;
             align-items: center;

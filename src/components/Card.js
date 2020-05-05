@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import ReactMarkdown from "react-markdown";
 
 import CardsContext from "../context/cards-context";

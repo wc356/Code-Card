@@ -8,14 +8,23 @@ import Card from "./Card";
 
 const CardList = () => {
   const { cards } = useContext(CardsContext);
+  const { cardsMemorized, cardsToReview } = useContext(CardsReviewContext);
 
   const Cards = () =>
     cards.map((card) => <Card key={card.title} card={card} />);
 
+  const CardsToReview = () =>
+    cardsToReview.map((card) => <Card key={card.title} card={card} />);
+
   const ReviewButtons = () =>
     cards.length === 0 && (
       <div className="button-wrapper">
-        <button onClick={() => true}>
+        <button
+          onClick={() => {
+            console.log(cardsToReview);
+            CardsToReview();
+          }}
+        >
           <h1>Review Incorrect</h1>
         </button>
         <button>

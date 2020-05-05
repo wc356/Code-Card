@@ -12,7 +12,6 @@ const AddCardForm = () => {
   const addCard = (e) => {
     e.preventDefault();
 
-    // Dispatch action ADD_CARD to reducer
     dispatch({
       type: "ADD_CARD",
       title,
@@ -20,7 +19,6 @@ const AddCardForm = () => {
       body,
       code,
     });
-
     // Clear input fields
     setTitle("");
     setLanguage("");
