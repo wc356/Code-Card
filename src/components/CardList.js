@@ -8,38 +8,27 @@ import Card from "./Card";
 
 const CardList = () => {
   const { cards } = useContext(CardsContext);
-  const {
-    cardsMemorized,
-    setCardsMemorized,
-    cardsToReview,
-    setCardsToReview,
-  } = useContext(CardsReviewContext);
+
+  const Cards = () =>
+    cards.map((card) => <Card key={card.title} card={card} />);
+
+  const ReviewButtons = () =>
+    cards.length === 0 && (
+      <div className="button-wrapper">
+        <button onClick={() => true}>
+          <h1>Review Incorrect</h1>
+        </button>
+        <button>
+          <h1>Review All</h1>
+        </button>
+      </div>
+    );
 
   return (
-    <CardsReviewContext.Provider
-      value={{
-        cardsMemorized,
-        setCardsMemorized,
-        cardsToReview,
-        setCardsToReview,
-      }}
-    >
-      <div className="cards-container">
-        <CardCounts />
-        {cards.map((card) => (
-          <Card key={card.title} card={card} />
-        ))}
-        {cards.length === 0 && (
-          <div className="button-wrapper">
-            <button>
-              <h1>Review Incorrect</h1>
-            </button>
-            <button>
-              <h1>Review All</h1>
-            </button>
-          </div>
-        )}
-      </div>
+    <div className="cards-container">
+      <CardCounts />
+      <Cards />
+      <ReviewButtons />
       <style jsx="true">
         {`
           .cards-container {
@@ -70,7 +59,7 @@ const CardList = () => {
           }
         `}
       </style>
-    </CardsReviewContext.Provider>
+    </div>
   );
 };
 

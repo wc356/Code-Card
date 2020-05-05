@@ -3,7 +3,7 @@ import React from "react";
 const Tag = ({ language }) => (
   <div className="wrapper">
     <div className="container">
-      <span>{language.toUpperCase()}</span>
+      <span>{language}</span>
     </div>
     <style jsx="true">
       {`

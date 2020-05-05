@@ -7,7 +7,7 @@ import CardsReviewContext from "../context/cards-review-context";
 import CodeBlock from "./renderer/CodeBlock";
 import Tag from "./Tag";
 
-const Card = ({ card }) => {
+const Card = ({ card: { title, body, language, code } }) => {
   const { dispatch } = useContext(CardsContext);
   const {
     cardsMemorized,
@@ -17,16 +17,16 @@ const Card = ({ card }) => {
   } = useContext(CardsReviewContext);
   const [cardFlipped, setCardFlipped] = useState(false);
 
-  const renderCardFace = () => {
+  const CardFace = () => {
     const cardSideFront = `
-  # ${card.title}
+  # ${title}
   `;
     const cardSideBack = `
-  # ${card.title}\n\n
+  # ${title}\n\n
 
-  ${card.body}
-  \`\`\`${card.language}
-  ${card.code}
+  ${body}
+  \`\`\`${language}
+  ${code}
   \`\`\`
   `;
 
@@ -40,8 +40,11 @@ const Card = ({ card }) => {
           <div className="button-container">
             <button
               onClick={() => {
-                setCardsMemorized([...cardsMemorized, card]);
-                dispatch({ type: "REMOVE_CARD", title: card.title });
+                setCardsMemorized([
+                  ...cardsMemorized,
+                  { title, body, language, code },
+                ]);
+                dispatch({ type: "REMOVE_CARD", title });
               }}
             >
               <span id="correct" role="img" aria-label="button-correct">
@@ -50,8 +53,11 @@ const Card = ({ card }) => {
             </button>
             <button
               onClick={() => {
-                setCardsToReview([...cardsToReview, card]);
-                dispatch({ type: "REMOVE_CARD", title: card.title });
+                setCardsToReview([
+                  ...cardsToReview,
+                  { title, body, language, code },
+                ]);
+                dispatch({ type: "REMOVE_CARD", title });
               }}
             >
               <h1 id="incorrect">X</h1>
@@ -108,8 +114,8 @@ const Card = ({ card }) => {
         cardFlipped ? setCardFlipped(false) : setCardFlipped(true)
       }
     >
-      <Tag language={card.language} />
-      {renderCardFace()}
+      <Tag language={language} />
+      <CardFace />
       <style jsx="true">
         {`
           .card {
