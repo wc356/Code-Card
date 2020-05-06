@@ -12,10 +12,14 @@ const CardCounts = () => {
 
   return (
     <>
-      <h1>correct: {cardsCountCorrect.length}</h1>
-      <h1>wrong: {cardsCountIncorrect.length}</h1>
       <h1>
-        showing {cardsToCount.length}{" "}
+        correct: <span>{`${cardsCountCorrect.length}`}</span>
+      </h1>
+      <h1>
+        wrong: <span>{`${cardsCountIncorrect.length}`}</span>
+      </h1>
+      <h1>
+        showing <span>{`${cardsToCount.length}`}</span>{" "}
         {cardsToCount.length === 1 ? "card" : "cards"}
       </h1>
     </>
